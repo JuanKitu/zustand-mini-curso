@@ -1,4 +1,4 @@
-import { WhiteCard } from '../../components';
+import {BlackBearsCard, PolarBearsCard, PandaBearsCard, BearsDisplay} from '../../components';
 
 export const BearPage = () => {
   return (
@@ -8,44 +8,12 @@ export const BearPage = () => {
       <hr />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <BlackBearsCard />
 
-        <WhiteCard centered>
-          <h2>Osos Negros</h2>
+        <PolarBearsCard />
 
-          <div className="flex flex-col md:flex-row">
-            <button> +1</button>
-            <span className="text-3xl mx-2 lg:mx-10"> 0 </span>
-            <button>-1</button>
-          </div>
-
-        </WhiteCard>
-
-        <WhiteCard centered>
-          <h2>Osos Polares</h2>
-
-          <div className="flex flex-col md:flex-row">
-            <button> +1</button>
-            <span className="text-3xl mx-2 lg:mx-10"> 0 </span>
-            <button>-1</button>
-
-          </div>
-
-        </WhiteCard>
-
-        <WhiteCard centered>
-          <h2>Osos Pandas</h2>
-
-          <div className="flex flex-col md:flex-row">
-            <button> +1</button>
-            <span className="text-3xl mx-2 lg:mx-10"> 0 </span>
-            <button>-1</button>
-          </div>
-
-        </WhiteCard>
-
-
-
-
+        <PandaBearsCard />
+        <BearsDisplay />
       </div>
 
     </>
