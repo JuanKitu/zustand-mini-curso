@@ -5,14 +5,15 @@ import classNames from 'classnames';
 import {DragEvent, useState} from "react";
 import {useTaskStore} from "../../stores";
 import {useShallow} from "zustand/react/shallow";
+import Swal from 'sweetalert2'
 interface Props {
   title: string;
-  value: TaskStatus;
+  status: TaskStatus;
   tasks: Task[]
 }
 
 
-export const JiraTasks = ({ title, value, tasks }: Props) => {
+export const JiraTasks = ({ title, status, tasks }: Props) => {
   const isDragging = useTaskStore(state => !!state.draggingTaskId);
   const onTaskDrop = useTaskStore(state => state.onTaskDrop);
   const [onDragOver, setOnDragOver] = useState(false);
@@ -27,11 +28,26 @@ export const JiraTasks = ({ title, value, tasks }: Props) => {
   const handleDragDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setOnDragOver(false);
-    onTaskDrop(value)
+    onTaskDrop(status)
   }
   const addTask = useTaskStore( useShallow( state => state.addTask ) );
-  const handleAddTask = () => {
-    addTask('Nuevo Titulo', value)
+  const handleAddTask = async () => {
+    const { isConfirmed, value } = await Swal.fire({
+      title: 'Nueva Tarea',
+      input: 'text',
+      inputLabel: 'Nombre de la tarea',
+      inputPlaceholder: 'Ingresa el nombre de la tarea',
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      cancelButtonText: 'Cancelar',
+      inputValidator: (status) => {
+        if (!status) {
+          return 'Debes ingresar un nombre de tarea'
+        }
+      }
+    });
+    if (!isConfirmed) return;
+    addTask(value, status);
   }
   return (
     <div
