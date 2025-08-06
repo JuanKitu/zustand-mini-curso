@@ -15,6 +15,7 @@ interface Actions {
     changeTaskStatus: (taskId:string, status:TaskStatus) => void;
     onTaskDrop: (status:TaskStatus) => void;
     addTask: (title: string, status: TaskStatus) => void;
+    totalTasks: () => number;
 }
 type TaskStore = TaskState & Actions;
 const storeAPI: StateCreator<TaskStore, [["zustand/immer", never]], [["zustand/immer", never], ["zustand/immer", never]]> = (set,get) => ({
@@ -62,7 +63,10 @@ const storeAPI: StateCreator<TaskStore, [["zustand/immer", never]], [["zustand/i
         /*set((state) => ({
             tasks: {...state.tasks, [newTask.id]: newTask}
         }))*/
-    }
+    },
+    totalTasks: () => {
+        return Object.values(get().tasks).length;
+    },
 });
 
 export const useTaskStore = create<TaskStore>()(
