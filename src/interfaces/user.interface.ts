@@ -2,6 +2,6 @@ export interface User {
     id: string;
     fullName: string;
     email: string;
-    isActive: string;
+    isActive: boolean;
     roles: string[];
 }
