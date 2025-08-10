@@ -11,7 +11,7 @@ interface AuthState {
 interface Actions {
     login: (email: string, password:string) => Promise<void>;
     checkAuthStatus: () => Promise<void>;
-    //logout: () => void;
+    logout: () => void;
 }
 export type AuthStore = AuthState & Actions;
 const storeAPI: StateCreator<AuthStore> = (set) => ({
@@ -35,6 +35,9 @@ const storeAPI: StateCreator<AuthStore> = (set) => ({
             set({status: 'unauthorized', token: undefined, user: undefined});
             throw e;
         }
+    },
+    logout: () => {
+        set({status: 'unauthorized', token: undefined, user: undefined});
     }
 })
 
