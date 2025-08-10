@@ -26,6 +26,7 @@ const menuItems: MenuItem[] = [
 
 export const SideMenu = () => {
   const logout = useAuthStore( state => state.logout );
+  const fullName = useAuthStore( state => state.user?.fullName ) ?? '';
   return (
     <div id="menu" className="bg-gray-900 min-h-screen z-10 text-slate-300 w-80 left-0 overflow-y-scroll">
       <div id="logo" className="my-4 px-6">
@@ -46,7 +47,7 @@ export const SideMenu = () => {
             <img className="rounded-full w-8 h-8" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=128&q=80" alt="" />
           </span>
           <span className="text-sm md:text-base font-bold">
-            Edward Tompson
+            { fullName }
           </span>
         </a>
       </div>
