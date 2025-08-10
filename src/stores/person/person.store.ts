@@ -2,6 +2,7 @@ import {create, type StateCreator} from "zustand";
 import {devtools, persist} from "zustand/middleware";
 //import {customSessionStorage} from "../storages/session-storate.storage.ts";
 import {firebaseStorage} from "../storages/firebase.storage.ts";
+import {useWeedingBoundStore} from "../weeding";
 
 interface PersonState {
     name: string;
@@ -37,3 +38,9 @@ export const usePersonStore = create<PersonStore>()(
         )
     )
 );
+
+usePersonStore.subscribe(state => {
+    const {name, lastName} = state;
+    useWeedingBoundStore.getState().setFirstName(name);
+    useWeedingBoundStore.getState().setLastName(lastName);
+})
